@@ -10,7 +10,7 @@ class ProductsOverviewScreen extends StatelessWidget {
       description: 'A red shirt - it is pretty red!',
       price: 29.99,
       imageUrl:
-          'https://image.pngaaa.com/417/1420417-middle.png',
+          'https://d3d71ba2asa5oz.cloudfront.net/12014029/images/shakavneckrd2.jpg',
     ),
     Product(
       id: 'p2',
