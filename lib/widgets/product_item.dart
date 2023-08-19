@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:my_shop/providers/products.dart';
+import 'package:my_shop/screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
   final String id;
   final String title;
+  final double price;
   final String imageUrl;
 
   ProductItem({
     required this.id,
     required this.title,
+    required this.price,
     required this.imageUrl,
   });
 
   @override
   Widget build(BuildContext context) {
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -27,15 +32,25 @@ class ProductItem extends StatelessWidget {
             title,
             textAlign: TextAlign.center,
           ),
+          subtitle: Text('\$$price'),
           trailing: IconButton(
             icon: Icon(Icons.shopping_cart),
             color: Theme.of(context).accentColor,
             onPressed: () {},
           ),
         ),
-        child: Image.network(
-          imageUrl,
-          fit: BoxFit.cover,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => ProductDetailScreen(title),
+              ),
+            );
+          },
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );
