@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
         title: 'MyShop',
         theme: ThemeData(
           primarySwatch: Colors.purple,
+          primaryColor: Colors.orange,
           accentColor: Colors.orange,
           fontFamily: 'Lato',
         ),
@@ -28,4 +29,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
