@@ -22,6 +22,14 @@ class Cart with ChangeNotifier {
     return {..._items};
   }
 
+  int get itemCount {
+    if (_items == null) {
+      return 0;
+    } else {
+      return _items.length;
+    }
+  }
+
   void addItem(
     String productId,
     double price,
@@ -49,6 +57,7 @@ class Cart with ChangeNotifier {
           quantity: 1,
         ),
       );
+      notifyListeners();
     }
   }
 }
