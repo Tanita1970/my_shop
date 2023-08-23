@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_shop/providers/cart.dart';
 import 'package:my_shop/providers/products.dart';
+import 'package:my_shop/screens/cart_screen.dart';
 import 'package:my_shop/widgets/products_grid.dart';
 import 'package:my_shop/widgets/my_badge.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +31,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               value: cart.itemCount.toString(),
             ),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
               icon: Icon(Icons.shopping_cart),
             ),
           ),
@@ -54,7 +57,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                   value: FilterOptions.All, child: Text('Show All')),
             ],
           ),
-
         ],
       ),
       body: ProductsGrid(_showOnlyFavorites),
