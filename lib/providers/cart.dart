@@ -23,11 +23,7 @@ class Cart with ChangeNotifier {
   }
 
   int get itemCount {
-    if (_items == null) {
-      return 0;
-    } else {
-      return _items.length;
-    }
+    return _items.length;
   }
 
   double get totalAmount {
