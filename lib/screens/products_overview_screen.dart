@@ -16,6 +16,7 @@ class ProductsOverviewScreen extends StatefulWidget {
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   //---------------------------------------------------
   var _showOnlyFavorites = false;
+
   //--------------------------------------------------
   @override
   Widget build(BuildContext context) {
