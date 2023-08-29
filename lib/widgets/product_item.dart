@@ -52,14 +52,20 @@ class ProductItem extends StatelessWidget {
             icon: Icon(Icons.shopping_cart),
             color: Theme.of(context).accentColor,
             onPressed: () {
-              cart.addItem(
-                product.id,
-                product.price,
-                product.title,
+              cart.addItem(product.id, product.price, product.title);
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Товар добавлен в корзину!'),
+                  duration: Duration(seconds: 4),
+                  action: SnackBarAction(
+                    label: 'Отменить',
+                    onPressed: () {
+                      return cart.removeSingleItem(product.id);
+                    },
+                  ),
+                ),
               );
-              print(product.title);
-              print(cart.items[product.id]?.quantity);
-              print(cart.items);
             },
           ),
         ),
