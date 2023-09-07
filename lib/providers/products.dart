@@ -83,4 +83,14 @@ class Products with ChangeNotifier {
     // _items.insert(0, newProduct); // Добавляет продукт в начало списка
     notifyListeners();
   }
+
+  void updateProduct(String id, Product newProduct) {
+    final prodIndex = _items.indexWhere((element) => element.id == id);
+    if (prodIndex >= 0) {
+      _items[prodIndex] = newProduct;
+    } else {
+      print('Нет продукта с таким id');
+    }
+    notifyListeners();
+  }
 }
