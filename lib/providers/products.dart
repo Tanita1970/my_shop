@@ -1,7 +1,6 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 import 'product.dart';
 
 class Products with ChangeNotifier {
@@ -75,26 +74,38 @@ class Products with ChangeNotifier {
 
   void addProduct(Product product) {
     // -----------------РАБОТА с Firebase-----------------------------
-    final url = Uri.parse('https://flutter-update-d6f09-default-rtdb.firebaseio.com/products.json');
-    http.post(url, body: json.encode({
-      'title': product.title,
-      'description': product.description,
-      'price': product.price,
-      'imageUrl': product.imageUrl,
-      'isFavorite': product.isFavorite,
-    }),);
+    final url = Uri.parse(
+        'https://flutter-update-d6f09-default-rtdb.firebaseio.com/products.json');
+    http
+        .post(
+      url,
+      body: json.encode({
+        'title': product.title,
+        'description': product.description,
+        'price': product.price,
+        'imageUrl': product.imageUrl,
+        'isFavorite': product.isFavorite,
+      }),
+    )
+        .then((response) {
+      // json.decode - расшифровка ответа, в ней мы получаем КАРТУ с ключом name:
+      // {name: -NduBVn2qy5CSUxyeHYa}
+      print(json.decode(response.body));
+      final newProduct = Product(
+        // и его мы можем использовать как уникальный id для нашего продукта, т.е.
+        // вместо id: DateTime.now().toString()
+        // пишем  id: json.decode(response.body)['name'],
+        id: json.decode(response.body)['name'],
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl,
+      );
+      _items.add(newProduct);
+      // _items.insert(0, newProduct); // Добавляет продукт в начало списка
+      notifyListeners();
+    });
     // -----------------РАБОТА с Firebase-----------------------------
-
-    final newProduct = Product(
-      id: DateTime.now().toString(),
-      title: product.title,
-      description: product.description,
-      price: product.price,
-      imageUrl: product.imageUrl,
-    );
-    _items.add(newProduct);
-    // _items.insert(0, newProduct); // Добавляет продукт в начало списка
-    notifyListeners();
   }
 
   void updateProduct(String id, Product newProduct) {
