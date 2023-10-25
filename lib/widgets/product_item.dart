@@ -35,7 +35,7 @@ class ProductItem extends StatelessWidget {
                 product.isFavorite ? Icons.favorite : Icons.favorite_border,
               ),
             ),
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).primaryColor,
             onPressed: () {
               product.toggleFavoriteStatus();
               print(product.isFavorite);
@@ -50,7 +50,7 @@ class ProductItem extends StatelessWidget {
           //---------------------
           trailing: IconButton(
             icon: Icon(Icons.shopping_cart),
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).primaryColor,
             onPressed: () {
               cart.addItem(product.id, product.price, product.title);
               ScaffoldMessenger.of(context).hideCurrentSnackBar();

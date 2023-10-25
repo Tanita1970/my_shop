@@ -73,6 +73,7 @@ class Products with ChangeNotifier {
   }
 
   void addProduct(Product product) {
+    print('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
     // -----------------РАБОТА с Firebase-----------------------------
     final url = Uri.parse(
         'https://flutter-update-d6f09-default-rtdb.firebaseio.com/products.json');
@@ -90,12 +91,20 @@ class Products with ChangeNotifier {
         .then((response) {
       // json.decode - расшифровка ответа, в ней мы получаем КАРТУ с ключом name:
       // {name: -NduBVn2qy5CSUxyeHYa}
+      print('object hgjhgjkhgkj jhkjhgkjhgkj jkhgkjhgkjhgkj');
+      print(response);
       print(json.decode(response.body));
+      //------------------------------------------------------------------------
+      // -----------------   КОНЕЦ РАБОТЫ с Firebase    ------------------------
+      //------------------------------------------------------------------------
+
+
       final newProduct = Product(
         // и его мы можем использовать как уникальный id для нашего продукта, т.е.
         // вместо id: DateTime.now().toString()
         // пишем  id: json.decode(response.body)['name'],
-        id: json.decode(response.body)['name'],
+        id: DateTime.now().toString(),
+        //id: json.decode(response.body)['name'],
         title: product.title,
         description: product.description,
         price: product.price,
