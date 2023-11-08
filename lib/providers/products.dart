@@ -72,12 +72,12 @@ class Products with ChangeNotifier {
     return _items.firstWhere((element) => element.id == id);
   }
 
-  void addProduct(Product product) {
+  Future<void> addProduct(Product product) {
     print('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
     // -----------------РАБОТА с Firebase-----------------------------
     final url = Uri.parse(
         'https://flutter-update-d6f09-default-rtdb.firebaseio.com/products.json');
-    http
+    return http
         .post(
       url,
       body: json.encode({
@@ -103,8 +103,8 @@ class Products with ChangeNotifier {
         // и его мы можем использовать как уникальный id для нашего продукта, т.е.
         // вместо id: DateTime.now().toString()
         // пишем  id: json.decode(response.body)['name'],
-        id: DateTime.now().toString(),
-        //id: json.decode(response.body)['name'],
+        // id: DateTime.now().toString(),
+        id: json.decode(response.body)['name'],
         title: product.title,
         description: product.description,
         price: product.price,
