@@ -72,38 +72,21 @@ class Products with ChangeNotifier {
     return _items.firstWhere((element) => element.id == id);
   }
 
-  Future<void> addProduct(Product product) {
-    print('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
-    // -----------------РАБОТА с Firebase-----------------------------
+  Future<void> addProduct(Product product) async {
     final url = Uri.parse(
         'https://flutter-update-d6f09-default-rtdb.firebaseio.com/products.json');
-    return http
-        .post(
-      url,
-      body: json.encode({
-        'title': product.title,
-        'description': product.description,
-        'price': product.price,
-        'imageUrl': product.imageUrl,
-        'isFavorite': product.isFavorite,
-      }),
-    )
-        .then((response) {
-      // json.decode - расшифровка ответа, в ней мы получаем КАРТУ с ключом name:
-      // {name: -NduBVn2qy5CSUxyeHYa}
-      print('object hgjhgjkhgkj jhkjhgkjhgkj jkhgkjhgkjhgkj');
-      print(response);
-      print(json.decode(response.body));
-      //------------------------------------------------------------------------
-      // -----------------   КОНЕЦ РАБОТЫ с Firebase    ------------------------
-      //------------------------------------------------------------------------
-
-
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode({
+          'title': product.title,
+          'description': product.description,
+          'price': product.price,
+          'imageUrl': product.imageUrl,
+          'isFavorite': product.isFavorite,
+        }),
+      );
       final newProduct = Product(
-        // и его мы можем использовать как уникальный id для нашего продукта, т.е.
-        // вместо id: DateTime.now().toString()
-        // пишем  id: json.decode(response.body)['name'],
-        // id: DateTime.now().toString(),
         id: json.decode(response.body)['name'],
         title: product.title,
         description: product.description,
@@ -113,8 +96,10 @@ class Products with ChangeNotifier {
       _items.add(newProduct);
       // _items.insert(0, newProduct); // Добавляет продукт в начало списка
       notifyListeners();
-    });
-    // -----------------РАБОТА с Firebase-----------------------------
+    } catch (error) {
+      print(error);
+      throw error;
+    }
   }
 
   void updateProduct(String id, Product newProduct) {
